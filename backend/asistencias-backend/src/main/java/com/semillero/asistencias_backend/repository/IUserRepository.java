@@ -10,5 +10,5 @@ import com.semillero.asistencias_backend.models.UserEntity;
 
 public interface IUserRepository extends JpaRepository<UserEntity, Long>{
 
-    Optional<UserEntity>  findByIdUsuario(Long idUsuario);
+    Optional<UserEntity>  findByUsername(String username);
 }
