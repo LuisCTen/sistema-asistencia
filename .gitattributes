@@ -1,0 +1,2 @@
+# Forzar el resaltado de sintaxis SQL en GitHub
+*.sql linguist-language=SQL
