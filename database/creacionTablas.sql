@@ -94,3 +94,9 @@ CREATE TABLE tbl_log_asistencia(
   CONSTRAINT fk_log_asist_usr FOREIGN KEY (id_usuario)    REFERENCES usuario (id_usuario),
   CONSTRAINT fk_log_asist_id  FOREIGN KEY (id_asistencia) REFERENCES asistencia(id_asistencia)
 );
+---INSERTS INICIALES
+INSERT INTO rol(nombre) VALUES ('ADMIN');
+INSERT INTO rol(nombre) VALUES ('EMPLEADO');
+
+INSERT INTO parametro(clave,valor,descripcion) VALUES ('Tolerancia_minutos','15','Minutos de tolerancia antes de considerar tardanza');
+COMMIT;
