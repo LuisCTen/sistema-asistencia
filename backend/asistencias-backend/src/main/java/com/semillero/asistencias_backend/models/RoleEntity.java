@@ -11,19 +11,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "rol")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+@Entity
+@Table(name = "ROL")
+public class RoleEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "ID_ROL")
+    private Long idRol;
 
-    @Column(unique = true, nullable = false)
-    private String name;
-
-
+    @Column(name = "NOMBRE", unique = true, nullable = false, length = 20)
+    private String nombre; // ADMIN, EMPLEADO
 }
