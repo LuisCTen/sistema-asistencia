@@ -1,0 +1,29 @@
+# --- Java & Spring Boot ---
+target/
+*.class
+*.jar
+*.war
+.mvn/
+mvnw
+mvnw.cmd
+
+# --- IDEs (VSCode) ---
+.vscode/
+.settings/
+.classpath
+.project
+*.launch
+
+# --- Logs & OS ---
+*.log
+.DS_Store
+Thumbs.db
+
+# --- Angular / Node  ---
+node_modules/
+dist/
+.angular/
+package-lock.json
+
+# --- Environment Variables (Seguridad) ---
+.env
