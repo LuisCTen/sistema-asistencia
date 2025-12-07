@@ -29,14 +29,14 @@ COMMENT ON TABLE USUARIO IS '1:Activo, 0:Inactivo';
                         descripcion  VARCHAR2(100)
 );
 COMMENT ON TABLE parametros IS 'Idea:hacer configuraciones dinamicas, por ej. tolerancia'; */
-CREATE TABLE TBL_PARAMETROS (
+CREATE TABLE parametro (
     CLAVE VARCHAR2(50) PRIMARY KEY,
     VALOR VARCHAR2(100) NOT NULL,
     DESCRIPCION VARCHAR2(200),
     -- ESTA LÍNEA ES LA SOLUCIÓN:
     CONSTRAINT CHK_CLAVE_UPPER CHECK (CLAVE = UPPER(CLAVE))
 );
-COMMENT ON TABLE parametros IS 'Idea:hacer configuraciones dinamicas, por ej. TOLERANCIA';
+COMMENT ON TABLE parametro IS 'Idea:hacer configuraciones dinamicas, por ej. TOLERANCIA';
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 --TABLA DE CALENDARIO LABORAL (feriados o dias no laborables)
 CREATE TABLE calendario_laboral(fec_calendario DATE PRIMARY KEY,
