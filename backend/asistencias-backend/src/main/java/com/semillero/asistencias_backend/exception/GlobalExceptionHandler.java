@@ -16,71 +16,74 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+
 import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-  private HttpStatus getStatus(Throwable ex) {
-    ResponseStatus status = ex.getClass().getAnnotation(ResponseStatus.class);
-    if (status != null) {
-      return status.value();
+    private HttpStatus getStatus(Throwable ex) {
+        ResponseStatus status = ex.getClass().getAnnotation(ResponseStatus.class);
+        if (status != null) {
+            return status.value();
+        }
+        return HttpStatus.INTERNAL_SERVER_ERROR;
     }
-    return HttpStatus.INTERNAL_SERVER_ERROR;
-  }
 
-  @ExceptionHandler({
-      BadRequestException.class,
-      ResourceNotFoundException.class,
-      ResourceUnAuthorizedException.class,
-      ValidatedRequestException.class,
-      RuntimeCustomException.class,
-      JWTVerificationException.class,
-      SignatureVerificationException.class
-  })
-  public ResponseEntity<ExceptionDto> handleCustomExceptions(RuntimeException ex, HttpServletRequest request) {
-    HttpStatus status = getStatus(ex);
+    @ExceptionHandler({
+        BadRequestException.class,
+        ResourceNotFoundException.class,
+        ResourceUnAuthorizedException.class,
+        ValidatedRequestException.class,
+        RuntimeCustomException.class,
+        JWTVerificationException.class,
+        SignatureVerificationException.class
+    })
+    public ResponseEntity<ExceptionDto> handleCustomExceptions(RuntimeException ex, HttpServletRequest request) {
+        HttpStatus status = getStatus(ex);
+        //Por si es JWT,401 o 403
+        if (ex instanceof JWTVerificationException || ex instanceof SignatureVerificationException) {
+            status = HttpStatus.UNAUTHORIZED;
+        }
+        ExceptionDto dto = ExceptionDto.builder()
+                .hora(LocalDateTime.now().format(FORMATTER))
+                .mensaje(ex.getMessage())
+                .url(request.getRequestURI())
+                .codeStatus(status.value())
+                .build();
 
-    ExceptionDto dto = ExceptionDto.builder()
-        .hora(LocalDateTime.now().format(FORMATTER))
-        .mensaje(ex.getMessage())
-        .url(request.getRequestURI())
-        .codeStatus(status.value())
-        .build();
+        log.error(ex.getClass().getSimpleName() + ": ", ex);
 
-    log.error(ex.getClass().getSimpleName() + ": ", ex);
+        return ResponseEntity.status(status).body(dto);
+    }
+    // Manejo de @Valid en DTOs
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ExceptionDto> handleValidationException(MethodArgumentNotValidException ex,
+            HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
 
-    return ResponseEntity.status(status).body(dto);
-  }
+        String mensaje = ex.getBindingResult().getAllErrors().stream()
+                .map(error -> {
+                    if (error instanceof FieldError fe) {
+                        return fe.getField() + ": " + fe.getDefaultMessage();
+                    } else {
+                        return error.getDefaultMessage();
+                    }
+                })
+                .collect(Collectors.joining(", "));
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<ExceptionDto> handleValidationException(MethodArgumentNotValidException ex,
-      HttpServletRequest request) {
-    HttpStatus status = HttpStatus.BAD_REQUEST;
+        ExceptionDto dto = ExceptionDto.builder()
+                .hora(LocalDateTime.now().format(FORMATTER))
+                .mensaje(mensaje)
+                .url(request.getRequestURI())
+                .codeStatus(status.value())
+                .build();
 
-    String mensaje = ex.getBindingResult().getAllErrors().stream()
-        .map(error -> {
-          if (error instanceof FieldError fe) {
-            return fe.getField() + ": " + fe.getDefaultMessage();
-          } else {
-            return error.getDefaultMessage();
-          }
-        })
-        .collect(Collectors.joining(", "));
+        log.error("ValidationException: {}", mensaje);
 
-    ExceptionDto dto = ExceptionDto.builder()
-        .hora(LocalDateTime.now().format(FORMATTER))
-        .mensaje(mensaje)
-        .url(request.getRequestURI())
-        .codeStatus(status.value())
-        .build();
-
-    log.error("ValidationException: {}", mensaje);
-
-    return ResponseEntity.status(status).body(dto);
-  }
+        return ResponseEntity.status(status).body(dto);
+    }
 }
