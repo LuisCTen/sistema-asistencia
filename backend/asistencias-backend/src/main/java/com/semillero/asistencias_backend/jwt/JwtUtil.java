@@ -11,7 +11,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-@Component//para poder inyectarlo luego en JWTfilter --ojo con esto
+@Component //para poder inyectarlo luego en JWTfilter --ojo con esto
 public class JwtUtil {
 
     @Value("${jwt.secret}")
