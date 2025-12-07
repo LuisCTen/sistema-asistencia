@@ -1,0 +1,22 @@
+<div class="side-bar">
+  <div class="logo-area">
+    <i class="uil uil-check-square"></i> Asistencias
+  </div>
+  <ul class="side-bar__list list-one">
+    <li [routerLink]="item.router" routerLinkActive="active-link" *ngFor="let item of mainMenu.defaultOptions">
+        <div class="list-wrapper-item">
+            <i [ngClass]="['uil',item.icon]"></i>
+            <span class="side-bar__list list_label">{{item.name}}</span>
+        </div>
+    </li>
+  </ul>
+
+  <ul class="side-bar__list list-two">
+    <li [routerLink]="item.router" *ngFor="let item of mainMenu.accessLink">
+      <div class="list-wrapper-item">
+        <i [ngClass]="['uil',item.com]"></i>
+        <span class="side-bar__list list_label">{{item.name}}</span>
+      </div>
+    </li>
+  </ul>
+</div>
