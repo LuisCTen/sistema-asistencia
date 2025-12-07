@@ -45,7 +45,7 @@ public class JwtUtil {
     }
 
     //lista de roles
-    public List<String> getRoles(String token){
+    public List<String> getRoles(String token) {
         return getDecodedJWT(token).getClaim("roles").asList(String.class);
     }
 

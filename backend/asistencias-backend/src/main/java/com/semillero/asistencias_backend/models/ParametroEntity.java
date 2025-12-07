@@ -24,6 +24,6 @@ public class ParametroEntity {
     @Column(name="VALOR", nullable=false,length=100)
     private String valor;
 
-    @Column(name="VALOR", length=200)
+    @Column(name="DESCRIPCION", length=200)
     private String descripcion;
 }

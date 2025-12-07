@@ -1,0 +1,17 @@
+### Login exitoso (token)
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "username":"adminIndra",
+    "password":"841606"
+}
+
+### Login fallido (401)
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+    "username":"adminIndra",
+    "password":"123"
+}
