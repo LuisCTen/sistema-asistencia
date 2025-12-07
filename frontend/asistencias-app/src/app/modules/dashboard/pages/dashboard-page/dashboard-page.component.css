@@ -1,0 +1,23 @@
+.dashboard-wrapper {
+  margin-left: 16rem;
+  /* Mismo ancho del sidebar */
+  padding-top: 60px;
+  /* Espacio para el header */
+  min-height: 100vh;
+  background-color: var(--color-3);
+}
+
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 16rem;
+  right: 0;
+  height: 60px;
+  background-color: var(--color-5);
+  /* O transparente con blur */
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  border-bottom: 1px solid var(--color-2);
+}
