@@ -106,10 +106,10 @@ CREATE TABLE tbl_log_asistencia(
 INSERT INTO rol(nombre) VALUES ('ADMIN');
 INSERT INTO rol(nombre) VALUES ('EMPLEADO');
 
-INSERT INTO TBL_PARAMETROS (CLAVE, VALOR, DESCRIPCION) 
+INSERT INTO parametro (CLAVE, VALOR, DESCRIPCION) 
 VALUES ('HORA_ENTRADA_BASE', '09:00', 'Hora predeterminada de inicio de la jornada laboral');
 
-INSERT INTO TBL_PARAMETROS (CLAVE, VALOR, DESCRIPCION) 
+INSERT INTO parametro (CLAVE, VALOR, DESCRIPCION) 
 VALUES ('TOLERANCIA_MINUTOS', '15', 'Minutos de tolerancia antes de considerar tardanza');
 
 COMMIT;
