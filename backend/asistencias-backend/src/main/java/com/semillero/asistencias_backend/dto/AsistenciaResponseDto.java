@@ -10,7 +10,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AsistenciaResponseDto {
+
+   //Mensaje del SP(Si se registro entrada o salida)
     private String mensaje;
-    private String fecha;
-    private String hora;
+
+    private Long idAsistencia;
+    private Long idUsuario;
+    private String nombreUsuario;
+
+    private String fecAsistencia;
+    private String horaEntrada;
+    private String horaSalida;
+    private String estadoAsistencia;
 }
