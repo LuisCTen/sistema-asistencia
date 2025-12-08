@@ -2,7 +2,8 @@ package com.semillero.asistencias_backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,12 +20,20 @@ public class AsistenciaController {
 
     private final IAsistenciaService iAsistenciaService;
 
-
-    @PostMapping("/marcar-asistencia/{username}")
-    public ResponseEntity<AsistenciaResponseDto> marcarAsistencia(@PathVariable String username){
-        
+    @PreAuthorize("hasRole('EMPLEADO') or hasRole('ADMIN')")
+    @PostMapping("/marcar-asistencia")
+    public ResponseEntity<AsistenciaResponseDto> marcarAsistencia(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return ResponseEntity.status(HttpStatus.CREATED)
                     .body(iAsistenciaService.registrarEntrada(username));
+    }
+
+    @PreAuthorize("hasRole('EMPLEADO') or hasRole('ADMIN')")
+    @PostMapping("/marcar-salida")
+    public ResponseEntity<AsistenciaResponseDto> marcarSalida(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ResponseEntity.status(HttpStatus.OK)
+                    .body(iAsistenciaService.registrarSalida(username));
     }
 
 }
