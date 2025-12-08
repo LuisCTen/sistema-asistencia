@@ -5,11 +5,38 @@
 </div>
 
 <div class="dashboard-wrapper">
-  <router-outlet></router-outlet>
 
-  <div style="padding: 2rem;">
-    <h1>Bienvenido al dashboard</h1>
-    <p>Selecciona una opcion del menu</p>
+  <div class="container">
+    <h1>Panel de Asistencias</h1>
+    <p class="subtitulo">Registro de marcación</p>
+
+    <div class="actions-grid"></div>
+      <button class ="card-btn-entry" (click)="marcarEntrada()">
+         <i class ="uil uil sun"></i>
+         <span>Marcar Entrada</span>
+      </button>
+
+      <button class="card-btn exit" (click)="marcarSalida()">
+            <i class ="uil uil moon"></i>
+            <span>Marcar Salida</span>
+      </button>
+
+      <div *ngIf="ultimaRespuesta" class="status-card" [ngClass]="isError ? 'error' : 'success'">
+            <div>
+              <i class="uil" [ngClass]="isError ? 'uil-times-circle': 'uil-check-circle'"></i>
+            </div>
+            <div class="info">
+                <h3>{{isError ? 'Aviso':'Exito'}}</h3>
+                <p>{{ultimaRespuesta.mensaje}}</p>
+
+                <div class="meta" *ngIf="!isError && ultimaRespuesta.horaEntrada">
+                    <small>{{ultimaRespuesta.fecAsistencia}}</small>
+                    <small>{{ultimaRespuesta.horaEntrada || ultimaRespuesta.horaSalida}}</small>
+                </div>
+
+            </div>
+      </div>
+
   </div>
 
 </div>

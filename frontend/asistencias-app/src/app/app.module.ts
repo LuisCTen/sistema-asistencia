@@ -14,7 +14,7 @@ import { InjectSessionInterceptor } from './core/interceptors/inject-session.int
     {
       provide:HTTP_INTERCEPTORS,
       useClass:InjectSessionInterceptor,
-      multi:true
+      multi:true//multiples interceptores
     }
   ],
   bootstrap: [AppComponent],
