@@ -1,2 +1,11 @@
-###Ingreso de eentrada (asistencia)
-POST http://localhost:8080/api/asistencias/marcar-asistencia/adminIndra
+###Variables
+@authToken =Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkluZHJhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjUxOTQzOTcsImV4cCI6MTc2NTIwMTU5N30.Z0zRbisk4wH7LFnEVTvdwO06j2MWBaFfkjtGgDZnaZU
+###Post Marcar Asistencia
+POST  http://localhost:8080/asistencias/marcar-asistencia
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###Marcar salida
+POST  http://localhost:8080/asistencias/marcar-salida
+Authorization: {{authToken}}
+Content-Type: application/json
