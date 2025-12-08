@@ -20,8 +20,6 @@ import com.semillero.asistencias_backend.repository.IUserRepository;
 import com.semillero.asistencias_backend.service.IAsistenciaService;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.ParameterMode;
-import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
