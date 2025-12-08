@@ -3,8 +3,11 @@ package com.semillero.asistencias_backend.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.semillero.asistencias_backend.dto.AsistenciaResponseDto;
+import com.semillero.asistencias_backend.exception.ResourceNotFoundException;
 import com.semillero.asistencias_backend.mappers.AsistenciaMapper;
+import com.semillero.asistencias_backend.models.UserEntity;
 import com.semillero.asistencias_backend.repository.IAsistenciaRepository;
+import com.semillero.asistencias_backend.repository.IUserRepository;
 import com.semillero.asistencias_backend.service.IAsistenciaService;
 
 import jakarta.persistence.EntityManager;
@@ -19,20 +22,42 @@ public class AsistenciaServiceImpl implements IAsistenciaService{
 
     private final EntityManager entityManager;
     private final IAsistenciaRepository iAsistenciaRepository;
+    private final IUserRepository  iUserRepository;
     private final AsistenciaMapper asistenciaMapper;
     
+
+    //--------------------------------------------------------------------------------------------
+    //Metodo para buscarIdPorNombre
+
+    private  Long buscarIdPorUsername(String username){
+
+        UserEntity userEntity = iUserRepository.findByUsername(username)
+                                            .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        
+        return userEntity.getIdUsuario();
+    }
+
     //--------------------------------------------------------------------------------------------
     //Metodos que implementan la logica de mi interfaz
     @Override
     @Transactional//Maneja la transaccion a la bd
-    public AsistenciaResponseDto registrarEntrada(Long idUsuario) {
+    public AsistenciaResponseDto registrarEntrada(String username) {
+
+        //Buscar el id del usuario
+        Long idUsuario =buscarIdPorUsername(username);
+
+        //Llamar al SP
         String mensajeOracle = ejecutarProcedimiento("PKG_ASISTENCIAS.SP_REGISTRAR_ENTRADA", idUsuario);
         //Nos ayudamos del mapper para estructurar respuesta
         return asistenciaMapper.toDtoFromSp(mensajeOracle, idUsuario) ;
     }
 
     @Override
-    public AsistenciaResponseDto registrarSalida(Long idUsuario) {
+    public AsistenciaResponseDto registrarSalida(String username) {
+        //LLama al metodo y busca id por usuario
+        Long idUsuario =buscarIdPorUsername(username);
+        
+        //Lama al SP
         String mensajeOracle =ejecutarProcedimiento("PKG_ASISTENCIAS.SP_REGISTRAR_SALIDA", idUsuario);
         return asistenciaMapper.toDtoFromSp(mensajeOracle, idUsuario);
     }
