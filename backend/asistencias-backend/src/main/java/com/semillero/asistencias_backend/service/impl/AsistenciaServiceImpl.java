@@ -8,6 +8,8 @@ import com.semillero.asistencias_backend.repository.IAsistenciaRepository;
 import com.semillero.asistencias_backend.service.IAsistenciaService;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.StoredProcedureQuery;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -38,7 +40,17 @@ public class AsistenciaServiceImpl implements IAsistenciaService{
     //Este metodo llama al Store Procedure
 
     private String ejecutarProcedimiento(String nombreSp, Long idUsuario) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       try{
+            StoredProcedureQuery query =entityManager.createStoredProcedureQuery(nombreSp);
+            query.registerStoredProcedureParameter("p_id_usuario", Long.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter("p_resultado", String.class, ParameterMode.OUT);
+            query.setParameter("p_id_usuario", idUsuario);
+            query.execute();
+            return (String) query.getParameterValue("p_resultado");
+
+       } catch(Exception e){
+            throw new RuntimeException("Error Oracle:"+e.getMessage());
+       }
     }
 
 }
