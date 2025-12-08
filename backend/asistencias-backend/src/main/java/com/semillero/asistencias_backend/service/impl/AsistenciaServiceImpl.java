@@ -52,6 +52,7 @@ public class AsistenciaServiceImpl implements IAsistenciaService{
             throw new RuntimeException("Error Oracle:"+e.getMessage());
        }
     }
-
+    //--------------------------------------------------------------------------------------------
+    //METODOS CRUD
 }
 
