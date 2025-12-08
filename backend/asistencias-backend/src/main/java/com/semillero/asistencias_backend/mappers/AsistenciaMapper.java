@@ -3,11 +3,14 @@ package com.semillero.asistencias_backend.mappers;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.stereotype.Component;
+
 import com.semillero.asistencias_backend.dto.AsistenciaRequestDto;
 import com.semillero.asistencias_backend.dto.AsistenciaResponseDto;
 import com.semillero.asistencias_backend.models.AsistenciaEntity;
 import com.semillero.asistencias_backend.models.UserEntity;
 
+@Component
 public class AsistenciaMapper {
 
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_DATE;//YYYY-MM-DD
