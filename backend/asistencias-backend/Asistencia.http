@@ -1,0 +1,2 @@
+###Ingreso de eentrada (asistencia)
+POST http://localhost:8080/api/asistencias/marcar-asistencia/adminIndra
