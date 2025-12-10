@@ -10,7 +10,7 @@ FECHA        : 10/12/2025
 CREATE OR REPLACE PACKAGE pkg_reportes AS
 --
    --
-   PROCEDURE fn_listar_historial(p_id_usuario IN usuario.id_usuario        %TYPE,
+   PROCEDURE sp_listar_historial(p_id_usuario IN usuario.id_usuario        %TYPE,
                                  p_fec_inicio IN asistencia.fec_asistencia %TYPE DEFAULT NULL,--si es null trae desde el inicio
                                  p_fec_fin    IN asistencia.fec_asistencia %TYPE DEFAULT NULL,--trae hasta hoy si es null.
                                  p_cursor    OUT SYS_REFCURSOR
