@@ -1,0 +1,73 @@
+<app-sidebar></app-sidebar>>
+<div class="main-header"><app-header-user></app-header-user>
+  <div class="dashboard-wrapper">
+    <div class="container">
+      <div class="app-header-flex">
+        <h1>Mi historial</h1>
+        <div class="filters">
+          <input type="date" [(ngModel)]="filtroInicio" class="form-input">
+          <input type="date" [(ngModel)]="filtroFin" class="form-input">
+          <button (click)="aplicarFiltros()" class="btn-primary">
+            Filtrar
+          </button>
+
+          <button (click)="limpiarFiltros()" class="btn-secundary" *ngIf="filtroInicio||filtroFin">
+            Limpiar
+          </button>
+        </div>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Hora Entrada</th>
+              <th>Hota Salida</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="cargando">
+              <td colspan="4" class="text-center">Cargando Datos...</td>
+            </tr>
+            <tr *ngFor="let item of historial">
+              <td>{{item.fecAsistencia|date:'dd/MM/yyyy'}}</td>
+              <td>{{item.horaEntrada | date:'mediumTime'}}</td>
+
+              <td>
+                <span *ngIf="item.horaSalida">{{item.horaSalida | date:'mediumTime'}}</span>
+                <span *ngIf="item.horaSalida" class="badge-pending"></span>
+              </td>
+
+              <td>
+                <span class="badge" [ngClass]="item.estadoAsistencia==='PUNTUAL'?'success':'warning'">
+                  {{item.estadoAsistencia}}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="!cargando && historial.length===0">
+              <td colspan="4" class="text-center">No se encontraron registros</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-controls" *ngIf="totalRegistros>0">
+        <button (click)="cambiarPagina(-1)" [disabled]="paginaActual===0||cargando">
+          <i class="uil uil-angle.left"></i>Anterior
+        </button>
+        <span class="page-info">
+          Pagina<b>{{paginaActual+1}}</b> de {{(totalRegistros/tamanoPagina)|number:'1.0-0'}}
+            <small>(Total:{{totalRegistros}})</small>
+        </span>
+
+        <button (click)="cambiarPagina(1)" [disabled]="(paginaActual+1)*tamanoPagina>=totalRegistros||cargando">
+          Siguiente<i class="uil uil-angle.right"></i>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
