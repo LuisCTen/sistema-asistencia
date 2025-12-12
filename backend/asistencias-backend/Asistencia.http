@@ -1,5 +1,5 @@
 ###Variables
-@authToken =Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkluZHJhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjUxOTQzOTcsImV4cCI6MTc2NTIwMTU5N30.Z0zRbisk4wH7LFnEVTvdwO06j2MWBaFfkjtGgDZnaZU
+@authToken =Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkluZHJhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjU0MzMwNTMsImV4cCI6MTc2NTQ0MDI1M30.6HDaYsbxz62ckVxloTo6GgE1YjCzgho2mT9OfcPWa14
 ###Post Marcar Asistencia
 POST  http://localhost:8080/asistencias/marcar-asistencia
 Authorization: {{authToken}}
@@ -9,3 +9,12 @@ Content-Type: application/json
 POST  http://localhost:8080/asistencias/marcar-salida
 Authorization: {{authToken}}
 Content-Type: application/json
+
+###Listar historial de asistencias
+GET  http://localhost:8080/asistencias/historial?page=0&size=5
+Authorization: {{authToken}}
+Content-Type: application/json
+
+###Obtener historial filtrado(Rango de Fechas)
+GET http://localhost:8080/asistencias/historial?page=0&size=20&fechaInicio=2025-12-01&fechaFin=2025-12-31
+Authorization: {{authToken}}
