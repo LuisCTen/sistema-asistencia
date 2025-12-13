@@ -25,6 +25,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_justificaciones AS
       IF v_existe > 0 THEN         
          --
          p_resultado :='ERROR: Ya existe una solicitud pendiente o aprobada para esta fecha';
+		 RETURN;
          --
       END IF;
       --Si no existe, entonces la insertamos
