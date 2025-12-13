@@ -1,0 +1,13 @@
+###Varible
+@authToken =Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkluZHJhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjU2MDIzNDYsImV4cCI6MTc2NTYwOTU0Nn0.hfR7QsFjFgEmWPmBP7f8Gs4T7mNby6-B66LZAr6lSUA
+
+### Registrar Justificación (Exito)
+POST http://localhost:8080/justificaciones/registrar
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{  
+ "fechaIncidencia": "2025-12-25",
+ "motivo": "Navidad, es feriado."
+}
+
