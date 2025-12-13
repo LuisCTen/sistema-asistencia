@@ -175,6 +175,7 @@ public class AsistenciaServiceImpl implements IAsistenciaService {
         }
     }
 
+    
 
     /*       try{
             StoredProcedureQuery query =entityManager.createStoredProcedureQuery(nombreSp);
