@@ -1,0 +1,55 @@
+<app-sidebar></app-sidebar>
+<div class="main-header"><app-header-user></app-header-user></div>
+
+<div class="dashboard-wrapper">
+  <div class="container">
+    <h1>Bandeja de Aprobaciones</h1>
+
+    <div *ngIf="mensajeFeedback" class="alert-success">
+      {{ mensajeFeedback }}
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Empleado</th>
+            <th>Fecha Incidencia</th>
+            <th>Motivo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="cargando">
+            <td colspan="4" class="text-center">Cargando... </td>
+          </tr>
+
+          <tr *ngFor="let item of pendientes">
+            <td>
+              <div class="user-cell">
+                <i class="uil uil-user-circle"></i>
+                {{ item.nombreEmpleado }}
+              </div>
+            </td>
+            <td>{{ item.fechaIncidencia | date:'dd/MM/yyyy' }}</td>
+            <td>{{ item.motivo }}</td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn-approve" (click)="atender(item.idJustificacion, 'APROBADO')">
+                  <i class="uil uil-check"></i> Aprobar
+                </button>
+                <button class="btn-reject" (click)="atender(item.idJustificacion, 'RECHAZADO')">
+                  <i class="uil uil-times"></i> Rechazar
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="!cargando && pendientes.length === 0">
+            <td colspan="4" class="text-center">¡Todo limpio! No hay solicitudes pendientes. </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

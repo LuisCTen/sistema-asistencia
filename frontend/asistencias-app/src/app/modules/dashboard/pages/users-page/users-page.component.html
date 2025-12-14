@@ -1,0 +1,73 @@
+<app-sidebar></app-sidebar>
+<div class="main-header"><app-header-user></app-header-user></div>
+
+<div class="dashboard-wrapper">
+  <div class="container">
+
+    <div class="page-header">
+      <div>
+        <h1> Gestión de Personal</h1>
+        <p class="subtitle">Administra los accesos y estados de los empleados</p>
+      </div>
+      <button class="btn-primary" (click)="abrirFormularioCrear()">
+        <i class="uil uil-plus"></i> Nuevo Empleado
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Nombre Completo</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="cargando">
+            <td colspan="5" class="text-center">Cargando datos... ⏳</td>
+          </tr>
+
+          <tr *ngFor="let u of usuarios">
+            <td>
+              <div class="user-info">
+                <span class="username">@{{ u.username }}</span>
+                <small class="email">{{ u.email }}</small>
+              </div>
+            </td>
+            <td>{{ u.nombreCompleto }}</td>
+            <td>
+              <span class="badge role-badge">{{ u.nombreRol }}</span>
+            </td>
+            <td>
+              <span class="badge" [ngClass]="u.estado === 1 ? 'active' : 'inactive'">
+                {{ u.estado === 1 ? 'ACTIVO' : 'BAJA' }}
+              </span>
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn-icon edit" (click)="abrirFormularioEditar(u)" title="Editar">
+                  <i class="uil uil-edit"></i>
+                </button>
+
+                <button *ngIf="u.estado === 1" class="btn-icon delete" (click)="eliminar(u)" title="Dar de baja">
+                  <i class="uil uil-trash-alt"></i>
+                </button>
+                <button *ngIf="u.estado === 0" class="btn-icon restore" (click)="activar(u)" title="Reactivar Usuario">
+                  <i class="uil uil-refresh"></i>
+                </button>
+            <td>
+            </td>
+    </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+  </div>
+
+  <app-user-form *ngIf="mostrarFormulario" [userToEdit]="usuarioSeleccionado" (onClose)="cerrarFormulario($event)">
+  </app-user-form>
+</div>
+</div>

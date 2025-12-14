@@ -1,5 +1,5 @@
 ###Variables
-@authToken =Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkluZHJhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjU2MDIzNDYsImV4cCI6MTc2NTYwOTU0Nn0.hfR7QsFjFgEmWPmBP7f8Gs4T7mNby6-B66LZAr6lSUA
+@authToken =Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkluZHJhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjU3MzA3NzUsImV4cCI6MTc2NTczNzk3NX0.b11yU8bO3vBEuM8cMg4x-FUOgBcnVS7EV6-FDmHprGs
 ###Post Marcar Asistencia
 POST  http://localhost:8080/asistencias/marcar-asistencia
 Authorization: {{authToken}}

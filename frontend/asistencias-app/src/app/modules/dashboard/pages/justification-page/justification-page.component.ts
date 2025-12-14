@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { JustificacionRequest } from 'src/app/core/models/justificacion.model';
 import { JustificacionService } from '../../services/justificacion.service';
 
@@ -7,7 +7,7 @@ import { JustificacionService } from '../../services/justificacion.service';
   templateUrl: './justification-page.component.html',
   styleUrls: ['./justification-page.component.css'],
 })
-export class JustificationPageComponent {
+export class JustificationPageComponent implements OnInit {
   solicitud: JustificacionRequest = {
     fechaIncidencia: '',
     motivo: '',
@@ -17,8 +17,20 @@ export class JustificationPageComponent {
   esError: boolean = false;
   cargando: boolean = false;
 
+  listaIncidencias: any[] = [];
+
   constructor(private justificacionService: JustificacionService) {}
 
+  ngOnInit(): void {
+    this.cargarIncidencias();
+  }
+
+  cargarIncidencias() {
+    this.justificacionService.getIncidencias().subscribe({
+      next: (data) => (this.listaIncidencias = data),
+      error: (err) => console.error('Error cargando incidencias', err),
+    });
+  }
   enviarSolicitud() {
     this.cargando = true;
     this.mensajeResultado = '';

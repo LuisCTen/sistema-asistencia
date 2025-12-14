@@ -3,23 +3,16 @@
   align-items: center;
   justify-content: flex-end;
   gap: 1rem;
-  cursor: pointer;
+  padding-right: 1rem;
 }
 
 .user-info {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--color-4);
+  flex-direction: column;
+  align-items: flex-end;
   font-weight: 500;
   font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  transition: background-color 0.2s;
-}
-
-.user-info:hover {
-  background-color: var(--color-2);
+  color: #333;
 }
 
 .avatar img {
@@ -27,4 +20,29 @@
   height: 35px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón de Salir - Sencillo y visible */
+.btn-logout {
+  background-color: #fff;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  /* Redondo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.btn-logout:hover {
+  background-color: #dc3545;
+  color: white;
+  transform: scale(1.1);
 }

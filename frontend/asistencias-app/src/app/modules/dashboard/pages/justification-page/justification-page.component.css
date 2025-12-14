@@ -1,6 +1,15 @@
+.dashboard-wrapper {
+  margin-left: 260px;
+  padding: 2rem;
+  padding-top: 80px;
+  min-height: 100vh;
+  transition: all 0.5s ease;
+}
+
 .container-center {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   padding-top: 2rem;
 }
 

@@ -1,5 +1,5 @@
 ###Varible
-@authToken =Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkluZHJhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjU2MDIzNDYsImV4cCI6MTc2NTYwOTU0Nn0.hfR7QsFjFgEmWPmBP7f8Gs4T7mNby6-B66LZAr6lSUA
+@authToken =Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkluZHJhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjU3NDU0MzUsImV4cCI6MTc2NTc1MjYzNX0.L8LYvzXkoREfRXs0jLssT27cDhhX2bYxqI441KXd4Hw
 
 ### Registrar Justificación (Exito)
 POST http://localhost:8080/justificaciones/registrar
@@ -11,3 +11,20 @@ Content-Type: application/json
  "motivo": "Navidad, es feriado."
 }
 
+### LISTAR PENDIENTES (ADMIN)
+GET http://localhost:8080/justificaciones/pendientes
+Authorization: {{authToken}}
+
+### APROBAR SOLICITUD (ADMIN) 
+PATCH http://localhost:8080/justificaciones/2/atender
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "estado": "APROBADO"
+}
+
+### 2. LISTAR INCIDENCIAS POR JUSTIFICAR
+GET http://localhost:8080/justificaciones/incidencias
+Authorization: Bearer {{authToken}}
+Content-Type: application/json

@@ -10,12 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.semillero.asistencias_backend.models.UserEntity;
 
 //Este es mi adaptador que encapsula al UserEntity
-public class UserDetailsImpl implements UserDetails{
+public class UserDetailsImpl implements UserDetails {
 
     private final UserEntity user;
 
-    public UserDetailsImpl(UserEntity user){
-        this.user=user;
+    public UserDetailsImpl(UserEntity user) {
+        this.user = user;
     }
 
     @Override
@@ -23,9 +23,11 @@ public class UserDetailsImpl implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //el usuario tiene UN solo rol directo
         // Spring Security espera una lista, entonces debo devolver una lista de 1 elemento.
-        if(user.getRole()==null) return Collections.emptyList();
+        if (user.getRole() == null) {
+            return Collections.emptyList();
+        }
         return Collections.singletonList(
-            new SimpleGrantedAuthority("ROLE_"+user.getRole().getNombre())
+                new SimpleGrantedAuthority("ROLE_" + user.getRole().getNombre())
         );
     }
 
@@ -40,18 +42,24 @@ public class UserDetailsImpl implements UserDetails{
     }
 
     @Override
-    public boolean isAccountNonExpired(){return true;}
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
     @Override
-    public boolean isAccountNonLocked(){return true;}
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
     @Override
-    public boolean isCredentialsNonExpired(){return true;}
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
     @Override
-    public boolean isEnabled(){
+    public boolean isEnabled() {
         //(1=Activo, 0=Inactivo)
-        return user.getEstado() !=null && user.getEstado()==1;
+        return user.getEstado() != null && user.getEstado() == 1;
     }
 
 }

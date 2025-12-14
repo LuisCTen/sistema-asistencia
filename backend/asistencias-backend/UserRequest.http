@@ -1,0 +1,47 @@
+### VARIABLES 
+
+@url = http://localhost:8080
+@contentType = application/json
+@idUsuarioPrueba = 25
+@authToken =Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkluZHJhIiwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NjU3MzA3NzUsImV4cCI6MTc2NTczNzk3NX0.b11yU8bO3vBEuM8cMg4x-FUOgBcnVS7EV6-FDmHprGs
+
+
+###  GESTIÓN DE USUARIOS (CRUD)
+### 1. LISTAR TODOS LOS USUARIOS
+GET {{url}}/api/usuarios
+Authorization: {{authToken}}
+
+### 2. CREAR NUEVO USUARIO (EMPLEADO)
+POST {{url}}/api/usuarios
+Authorization: {{authToken}}
+Content-Type: {{contentType}}
+
+{
+    "username": "user_25",
+    "password": "password123",
+    "email": "user_25@indra.com",
+    "nombreCompleto": "user_25_cimpleto",
+    "idRol": 2,
+    "estado": 1
+}
+
+### 3. BUSCAR USUARIO POR ID
+GET {{url}}/api/usuarios/{{idUsuarioPrueba}}
+Authorization: {{authToken}}
+
+### 4. ACTUALIZAR USUARIO
+PUT {{url}}/api/usuarios/{{idUsuarioPrueba}}
+Authorization: {{authToken}}
+Content-Type: {{contentType}}
+
+{
+    "username": "user_25_baja", 
+    "email": "baja@indracompany.com",
+    "nombreCompleto": "Nombre baja1",
+    "idRol": 2,
+    "estado": 1
+}
+
+### 5. DAR DE BAJA (ELIMINAR LÓGICO)
+DELETE {{url}}/api/usuarios/{{idUsuarioPrueba}}
+Authorization: {{authToken}}
