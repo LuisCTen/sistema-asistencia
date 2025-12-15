@@ -7,36 +7,82 @@
 <div class="dashboard-wrapper">
 
   <div class="container">
-    <h1>Panel de Asistencias</h1>
-    <p class="subtitulo">Registro de marcación</p>
 
-    <div class="actions-grid"></div>
-      <button class ="card-btn-entry" (click)="marcarEntrada()">
-         <i class ="uil uil sun"></i>
-         <span>Marcar Entrada</span>
-      </button>
+    <h1>Hola, {{ usuario.name }}</h1>
+    <p class="subtitle">
+      {{ isAdmin ? 'Resumen general del sistema' : 'Panel de control de asistencias' }}
+    </p>
 
-      <button class="card-btn exit" (click)="marcarSalida()">
-            <i class ="uil uil moon"></i>
-            <span>Marcar Salida</span>
-      </button>
+    <div *ngIf="isAdmin" class="admin-dashboard fade-in">
+      <div class="stats-grid">
 
-      <div *ngIf="ultimaRespuesta" class="status-card" [ngClass]="isError ? 'error' : 'success'">
-            <div>
-              <i class="uil" [ngClass]="isError ? 'uil-times-circle': 'uil-check-circle'"></i>
-            </div>
-            <div class="info">
-                <h3>{{isError ? 'Aviso':'Exito'}}</h3>
-                <p>{{ultimaRespuesta.mensaje}}</p>
+        <div class="stat-card blue">
+          <div class="icon"><i class="uil uil-users-alt"></i></div>
+          <div class="data">
+            <h3>{{ stats?.totalEmpleados || 0 }}</h3>
+            <span>Empleados Activos</span>
+          </div>
+        </div>
 
-                <div class="meta" *ngIf="!isError && ultimaRespuesta.horaEntrada">
-                    <small>{{ultimaRespuesta.fecAsistencia}}</small>
-                    <small>{{ultimaRespuesta.horaEntrada || ultimaRespuesta.horaSalida}}</small>
-                </div>
+        <div class="stat-card green">
+          <div class="icon"><i class="uil uil-check-circle"></i></div>
+          <div class="data">
+            <h3>{{ stats?.asistenciasHoy || 0 }}</h3>
+            <span>Asistencias Hoy</span>
+          </div>
+        </div>
 
-            </div>
+        <div class="stat-card orange">
+          <div class="icon"><i class="uil uil-clock-eight"></i></div>
+          <div class="data">
+            <h3>{{ stats?.tardanzasHoy || 0 }}</h3>
+            <span>Tardanzas Hoy</span>
+          </div>
+        </div>
+
+        <div class="stat-card red">
+          <div class="icon"><i class="uil uil-file-exclamation-alt"></i></div>
+          <div class="data">
+            <h3>{{ stats?.justificacionesPendientes || 0 }}</h3>
+            <span>Solicitudes Pendientes</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div *ngIf="!isAdmin" class="employee-dashboard fade-in">
+
+      <p class="subtitulo">Registro de marcación</p>
+
+      <div class="actions-grid">
+        <button class="card-btn entry" (click)="marcarEntrada()">
+          <i class="uil uil-sun"></i>
+          <span>Marcar Entrada</span>
+        </button>
+
+        <button class="card-btn exit" (click)="marcarSalida()">
+          <i class="uil uil-moon"></i>
+          <span>Marcar Salida</span>
+        </button>
       </div>
 
-  </div>
+      <div *ngIf="ultimaRespuesta" class="status-card" [ngClass]="isError ? 'error' : 'success'">
+        <div>
+          <i class="uil" [ngClass]="isError ? 'uil-times-circle' : 'uil-check-circle'"></i>
+        </div>
+        <div class="info">
+          <h3>{{ isError ? 'Aviso' : 'Éxito' }}</h3>
+          <p>{{ ultimaRespuesta.mensaje }}</p>
 
+          <div class="meta" *ngIf="!isError && ultimaRespuesta.horaEntrada">
+            <small>{{ ultimaRespuesta.fecAsistencia }}</small>
+            <small>{{ ultimaRespuesta.horaEntrada || ultimaRespuesta.horaSalida }}</small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 </div>
