@@ -26,5 +26,5 @@ Content-Type: application/json
 
 ### 2. LISTAR INCIDENCIAS POR JUSTIFICAR
 GET http://localhost:8080/justificaciones/incidencias
-Authorization: Bearer {{authToken}}
+Authorization: {{authToken}}
 Content-Type: application/json

@@ -42,7 +42,7 @@ public class JustificacionEntity {
     private String motivo;
 
     @Column(name="ESTADO_SOLICITUD", nullable=false,length=20)
-    private String estado_solicitud;
+    private String estadoSolicitud;
 
     @Column(name="FEC_SOLICITUD")
     private LocalDateTime fechaSolicitud;
@@ -50,8 +50,8 @@ public class JustificacionEntity {
     @PrePersist
     protected void onCreate(){
         this.fechaSolicitud=LocalDateTime.now();
-        if(this.estado_solicitud==null){
-            this.estado_solicitud="PENDIENTE";
+        if(this.estadoSolicitud==null){
+            this.estadoSolicitud="PENDIENTE";
         }
     }
 }
